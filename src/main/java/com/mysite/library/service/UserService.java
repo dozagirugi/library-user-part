@@ -86,10 +86,20 @@ public class UserService {
         return userEntity.map(UserDTO::toUserDTO).orElse(null);
     }
 
+    public UserDTO findByEmail(String email) {
+
+        Optional<UserEntity> userEntity = userRepository.findByEmail(email);
+        return userEntity.map(UserDTO::toUserDTO).orElse(null);
+    }
+
     public UserDTO findByName(String name) {
 
         Optional<UserEntity> userEntity = userRepository.findByName(name);
         return userEntity.map(UserDTO::toUserDTO).orElse(null);
+    }
+
+    public void deleteByid(Long id) {
+        userRepository.deleteById(id);
     }
 }
 

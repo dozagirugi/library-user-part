@@ -3,6 +3,8 @@ package com.mysite.library.controller;
 import com.mysite.library.dto.UserDTO;
 import com.mysite.library.entity.UserEntity;
 import com.mysite.library.service.UserService;
+import jakarta.servlet.http.HttpSession;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -18,18 +20,27 @@ public class MyPageController {
     @Autowired
     private UserService userService;
 
-//    //마이페이지 리턴
-//    @GetMapping("/mypage")
-//    public String mypage(Principal principal) {
-//        String name = principal.getName();
-//        UserEntity user = userService.findByName(아니뭐어쩌라고요);
-//        return "mypage";
-//    }
-
     @GetMapping("/mypage")
     public String myPage() {
         return "mypage";
     }
+
+//    //마이페이지 리턴
+//    @GetMapping("/mypage")
+//    public String mypage(Model model, Principal principal) {
+//        UserEntity user = userService.findByName(principal.getName)
+    //model.addAttribute("userID"
+//        return "/mypage";
+//    }
+
+//    @GetMapping("/mypage")
+//    public String mypage(Principal principal) {
+//
+//        if (principal == null) {
+//            return "mypage";
+//        }
+//        return "/update/{id}";
+//    }
 
 
     //update: 수정 페이지 리턴
@@ -46,7 +57,7 @@ public class MyPageController {
     }
 
     //update: 수정된 정보 전송
-    @PostMapping("/mypage/update")
+    @PostMapping("/update")
     public String update(@ModelAttribute UserDTO userDTO, Model model) {
         UserDTO updateUser = userService.update(userDTO);
         if (updateUser != null) {
@@ -59,23 +70,28 @@ public class MyPageController {
         }
     }
 
-//    //delete
-//    @GetMapping("/delete/{idx}")
-//    public String deleteForm(Principal principal, @PathVariable("idx") Long idx) {
-//        UserDTO userDTO = userService.findById(idx);
-//
-//        return "delete";
-//    }
+
+    @GetMapping("/delete")
+    public String deletePage(Principal principal, Model model) {
+        String email = principal.getName();
+        UserDTO user = userService.findByEmail(email);
+        model.addAttribute("user", user);
+        System.out.println("유저번호:" + user.getIdx());
+        return "delete";
+    }
+    //delete
+    @PostMapping("/delete")
+    public String deleteById(@ModelAttribute("user") UserDTO userDTO) {
+        userService.deleteByid(userDTO.getIdx());
+
+        return "redirect:/";
+    }
+
+
 
     //borrow
     @GetMapping("/borrowBook")
     public String borrowBook() {
         return "borrowBook";
-    }
-
-    //logout
-    @GetMapping("/logout")
-    public String logoutPage() {
-        return "logout";
     }
 }

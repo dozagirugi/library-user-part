@@ -54,4 +54,10 @@ public class UserController {
         }
         return "/main";
     }
+
+    //logout
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "logout";
+    }
 }

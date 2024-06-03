@@ -7,7 +7,7 @@
 
     <h1>[회원정보 수정]</h1>
 
-    <form action="#" th:action="@{/mypage/update}" th:object="${userDTO}" method="post">
+    <form action="#" th:action="@{/update}" th:object="${userDTO}" method="post">
         <input type="hidden" th:field="*{idx}" />
         <h2>
         <input type="text" th:field="*{email}" readonly/>
