@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body>
+    <h2>[도서관 메인 페이지]</h2>
+    현재 로그인 된 회원의 이메일입니다 -> <p th:text="${session.loginEmail}"/>
+
+    <hr><br><br>
+    <p>-- 여기는 도서 홈페이지 화면 --</p>
+    <br><br><hr>
+
+    <br>
+
+    <a th:href="@{/mypage}">마이페이지</a>
+    <button onclick="location.href='logout'">로그아웃</button>
+</body>
+</html>
